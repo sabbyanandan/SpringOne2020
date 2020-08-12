@@ -33,11 +33,11 @@ public class TrucksApplication {
 
 	@Bean
 	@Scheduled(fixedRate = 1000L)
-	public Supplier<Truck> supplier() {
-		return () -> randomCar();
+	public Supplier<Truck> generateTruck() {
+		return () -> randomTruck();
 	}
 
-	private Truck randomCar() {
+	private Truck randomTruck() {
 		Truck truck = new Truck();
 		truck.setId(VIN_LIST.get(random.nextInt(VIN_LIST.size())));
 		truck.setAcceleration(random.nextFloat() * 10);
