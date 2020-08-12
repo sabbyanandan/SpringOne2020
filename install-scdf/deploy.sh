@@ -93,7 +93,7 @@ scdf_release_name="scdf"
 if ! helm status "${scdf_release_name}" > /dev/null; then
   echo "Install bitnami/spring-cloud-dataflow scdf_release_name=${scdf_release_name} scdf_namespace=${scdf_namespace}"
 
-  helm upgrade --wait -n "${scdf_namespace}" --install "${scdf_release_name}" bitnami/spring-cloud-dataflow --version \
+  helm upgrade --wait -n "${scdf_namespace}" --install "${scdf_release_name}" bitnami/spring-cloud-dataflow \
     --set kafka.enabled=true \
     --set rabbitmq.enabled=false \
     --set metrics.enabled=true \
