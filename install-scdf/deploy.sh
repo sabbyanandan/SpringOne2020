@@ -93,7 +93,7 @@ scdf_release_name="scdf"
 if ! helm status "${scdf_release_name}" > /dev/null; then
   echo "Install bitnami/spring-cloud-dataflow scdf_release_name=${scdf_release_name} scdf_namespace=${scdf_namespace}"
 
-  helm upgrade --wait -n "${scdf_namespace}" --install "${scdf_release_name}" bitnami/spring-cloud-dataflow --version 0.4.1 \
+  helm upgrade --wait -n "${scdf_namespace}" --install "${scdf_release_name}" bitnami/spring-cloud-dataflow --version \
     --set kafka.enabled=true \
     --set rabbitmq.enabled=false \
     --set metrics.enabled=true \
@@ -105,7 +105,7 @@ echo "A release of bitnami/spring-cloud-dataflow, ${scdf_release_name}, is runni
 
 MARIADB_ROOT_PASSWORD=$(kubectl get secret --namespace "${scdf_namespace}" "${scdf_release_name}-mariadb" -o jsonpath="{.data.mariadb-root-password}" | base64 --decode)
 
-helm upgrade --wait -n "${scdf_namespace}" --install "${scdf_release_name}" bitnami/spring-cloud-dataflow --version 0.4.1 \
+helm upgrade --wait -n "${scdf_namespace}" --install "${scdf_release_name}" bitnami/spring-cloud-dataflow \
   --set mariadb.rootUser.password=$MARIADB_ROOT_PASSWORD \
   --set kafka.enabled=true \
   --set rabbitmq.enabled=false \
