@@ -14,6 +14,9 @@ public class Truck {
 
 	Float externalTemperature;
 
+	public Truck() {
+	}
+
 	public String getId() {
 		return id;
 	}

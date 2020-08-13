@@ -53,7 +53,7 @@ if ! helm status -n "${grafana_namespace}" "${grafana_release_name}" > /dev/null
     ! download_dasboard "${grafana_dashboard_root_url}/${dashboard}.json" "${grafana_tmp_folder}/${dashboard}.json" exit 1
 
     kubectl -n "${grafana_namespace}" delete configmap "grafana-dashboards-${dashboard}" || true && \
-      kubectl -n "${grafana_namespace}" create configmap "grafana-dashboards-${dashboard}" --from-file=${dashboard}.json=${grafana_tmp_folder}/${dashboard}.json
+    kubectl -n "${grafana_namespace}" create configmap "grafana-dashboards-${dashboard}" --from-file=${dashboard}.json=${grafana_tmp_folder}/${dashboard}.json
   done
 
   cat > "${grafana_tmp_folder}/datasources.yaml" <<EOF

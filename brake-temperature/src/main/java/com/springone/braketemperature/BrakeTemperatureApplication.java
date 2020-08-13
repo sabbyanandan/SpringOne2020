@@ -57,6 +57,9 @@ public class BrakeTemperatureApplication {
 
 		private Date end;
 
+		public AverageBrakeTemperatureAccumulator() {
+		}
+
 		public AverageBrakeTemperatureAccumulator(int count, Float totalValue) {
 			this.count = count;
 			this.totalValue = totalValue;
