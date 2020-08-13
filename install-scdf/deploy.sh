@@ -112,7 +112,7 @@ helm upgrade --wait -n "${scdf_namespace}" --install "${scdf_release_name}" bitn
   --set metrics.enabled=true \
   --set metrics.serviceMonitor.enabled=true \
   --set metrics.serviceMonitor.namespace="${prometheus_namespace}" \
-  --set server.configuration.grafanaInfo="http://grafana:3000" > /dev/null
+  --set server.configuration.grafanaInfo="http://instance.autolab.strigo.io:3000" > /dev/null
 
 echo ""
 echo "### Stack succesfully deployed ###"

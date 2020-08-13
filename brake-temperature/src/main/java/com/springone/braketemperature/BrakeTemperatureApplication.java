@@ -45,7 +45,7 @@ public class BrakeTemperatureApplication {
 				});
 	}
 
-	class AverageBrakeTemperatureAccumulator {
+	static class AverageBrakeTemperatureAccumulator {
 
 		private int count;
 
