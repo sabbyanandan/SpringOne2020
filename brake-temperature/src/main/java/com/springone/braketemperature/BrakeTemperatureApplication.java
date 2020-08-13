@@ -34,6 +34,7 @@ public class BrakeTemperatureApplication {
 							agg.setCount(agg.getCount() + 1);
 							agg.setTotalValue(v.getBrakeTemperature());
 							agg.setAverage(agg.getTotalValue() / agg.getCount());
+							agg.setId(v.getId());
 							return agg;
 						},
 						Materialized.with(Serdes.String(), new JsonSerde<>(AverageBrakeTemperatureAccumulator.class)))
@@ -48,6 +49,8 @@ public class BrakeTemperatureApplication {
 	static class AverageBrakeTemperatureAccumulator {
 
 		private int count;
+
+		private String id;
 
 		private Float totalValue;
 
@@ -71,6 +74,14 @@ public class BrakeTemperatureApplication {
 
 		public void setCount(int count) {
 			this.count = count;
+		}
+
+		public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
 		}
 
 		public Float getTotalValue() {
@@ -103,6 +114,14 @@ public class BrakeTemperatureApplication {
 
 		public void setEnd(Date end) {
 			this.end = end;
+		}
+
+		@Override public String toString() {
+			return "Average Brake Temperature: {" +
+					"count=" + count +
+					", id='" + id + '\'' +
+					", average=" + average +
+					'}';
 		}
 	}
 }
