@@ -9,17 +9,17 @@ prometheus_release_name="prom"
 prometheus_host="prometheus-operated"
 prometheus_port="9090"
 
-if ! kubectl get namespace "${prometheus_namespace}" > /dev/null; then
+if ! kubectl get namespace "${prometheus_namespace}" >/dev/null; then
   echo "A namespace called ${prometheus_namespace} for prometheus should exist, creating it"
-  kubectl create namespace "${prometheus_namespace}" > /dev/null
+  kubectl create namespace "${prometheus_namespace}" >/dev/null
 fi
 echo "A namespace called ${prometheus_namespace} exists in the cluster"
 
-if ! helm status -n "${prometheus_namespace}" "${prometheus_release_name}" > /dev/null; then
+if ! helm status -n "${prometheus_namespace}" "${prometheus_release_name}" >/dev/null; then
   echo "Install bitnami/prometheus-operator prometheus_release_name=${prometheus_release_name} prometheus_namespace=${prometheus_namespace}"
 
   helm upgrade --wait -n "${prometheus_namespace}" --install "${prometheus_release_name}" \
-    bitnami/prometheus-operator > /dev/null
+    bitnami/prometheus-operator >/dev/null
 fi
 echo "A release of bitnami/prometheus-operator, ${prometheus_release_name}, is running on ${prometheus_namespace} namespace"
 
@@ -27,9 +27,9 @@ echo "A release of bitnami/prometheus-operator, ${prometheus_release_name}, is r
 grafana_namespace="monitoring"
 grafana_release_name="graf"
 
-if ! kubectl get namespace "${grafana_namespace}" > /dev/null; then
+if ! kubectl get namespace "${grafana_namespace}" >/dev/null; then
   echo "A namespace called ${grafana_namespace} for grafana should exist, creating it"
-  kubectl create namespace "${grafana_namespace}" > /dev/null
+  kubectl create namespace "${grafana_namespace}" >/dev/null
 fi
 echo "A namespace called ${grafana_namespace} exists in the cluster"
 
@@ -43,7 +43,7 @@ download_dasboard() {
   fi
 }
 
-if ! helm status -n "${grafana_namespace}" "${grafana_release_name}" > /dev/null; then
+if ! helm status -n "${grafana_namespace}" "${grafana_release_name}" >/dev/null; then
   echo "Install bitnami/grafana grafana_release_name=${grafana_release_name} grafana_namespace=${grafana_namespace}"
 
   grafana_tmp_folder="/tmp/graf.$(date +%s)"
@@ -51,15 +51,14 @@ if ! helm status -n "${grafana_namespace}" "${grafana_release_name}" > /dev/null
 
   grafana_dashboard_root_url="https://raw.githubusercontent.com/spring-cloud/spring-cloud-dataflow/master/src/grafana/prometheus/docker/grafana/dashboards"
 
-  for dashboard in "scdf-applications" "scdf-streams" "scdf-task-batch"
-  do
+  for dashboard in "scdf-applications" "scdf-streams" "scdf-task-batch"; do
     ! download_dasboard "${grafana_dashboard_root_url}/${dashboard}.json" "${grafana_tmp_folder}/${dashboard}.json" exit 1
 
-    kubectl -n "${grafana_namespace}" delete configmap "grafana-dashboards-${dashboard}" || true && \
-    kubectl -n "${grafana_namespace}" create configmap "grafana-dashboards-${dashboard}" --from-file=${dashboard}.json=${grafana_tmp_folder}/${dashboard}.json
+    kubectl -n "${grafana_namespace}" delete configmap "grafana-dashboards-${dashboard}" || true &&
+      kubectl -n "${grafana_namespace}" create configmap "grafana-dashboards-${dashboard}" --from-file=${dashboard}.json=${grafana_tmp_folder}/${dashboard}.json
   done
 
-  cat > "${grafana_tmp_folder}/datasources.yaml" <<EOF
+  cat >"${grafana_tmp_folder}/datasources.yaml" <<EOF
 apiVersion: 1
 datasources:
 - name: ScdfPrometheus
@@ -73,7 +72,7 @@ datasources:
   read_only: false
 EOF
 
-  kubectl -n "${grafana_namespace}" delete secret "grafana-datasources" || true && \
+  kubectl -n "${grafana_namespace}" delete secret "grafana-datasources" || true &&
     kubectl -n "${grafana_namespace}" create secret generic "grafana-datasources" --from-file=datasources.yaml=${grafana_tmp_folder}/datasources.yaml
 
   helm upgrade --wait -n "${grafana_namespace}" --install "${grafana_release_name}" \
@@ -85,7 +84,7 @@ EOF
     --set dashboardsConfigMaps[1].fileName=scdf-streams.json \
     --set dashboardsConfigMaps[2].configMapName=grafana-dashboards-scdf-task-batch \
     --set dashboardsConfigMaps[2].fileName=scdf-task-batch.json \
-    --set datasources.secretName=grafana-datasources > /dev/null
+    --set datasources.secretName=grafana-datasources >/dev/null
 fi
 echo "A release of bitnami/prometheus-operator, ${grafana_release_name}, is running on ${grafana_namespace} namespace"
 
@@ -93,7 +92,7 @@ echo "A release of bitnami/prometheus-operator, ${grafana_release_name}, is runn
 scdf_namespace="default"
 scdf_release_name="scdf"
 
-if ! helm status "${scdf_release_name}" > /dev/null; then
+if ! helm status "${scdf_release_name}" >/dev/null; then
   echo "Install bitnami/spring-cloud-dataflow scdf_release_name=${scdf_release_name} scdf_namespace=${scdf_namespace}"
 
   helm upgrade --wait -n "${scdf_namespace}" --install "${scdf_release_name}" bitnami/spring-cloud-dataflow \
@@ -102,7 +101,7 @@ if ! helm status "${scdf_release_name}" > /dev/null; then
     --set metrics.enabled=true \
     --set metrics.serviceMonitor.enabled=true \
     --set metrics.serviceMonitor.namespace="${prometheus_namespace}" \
-    --set server.configuration.grafanaInfo="http://instance.autolab.strigo.io:3000" > /dev/null
+    --set server.configuration.grafanaInfo="http://instance.autolab.strigo.io:3000" >/dev/null
 fi
 echo "A release of bitnami/spring-cloud-dataflow, ${scdf_release_name}, is running on ${scdf_namespace} namespace"
 
@@ -115,7 +114,7 @@ helm upgrade --wait -n "${scdf_namespace}" --install "${scdf_release_name}" bitn
   --set metrics.enabled=true \
   --set metrics.serviceMonitor.enabled=true \
   --set metrics.serviceMonitor.namespace="${prometheus_namespace}" \
-  --set server.configuration.grafanaInfo="http://instance.autolab.strigo.io:3000" > /dev/null
+  --set server.configuration.grafanaInfo="http://instance.autolab.strigo.io:3000" >/dev/null
 
 echo ""
 echo "### Stack succesfully deployed ###"
