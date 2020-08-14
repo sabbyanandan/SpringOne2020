@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## Helm Repo Update
+helm repo update
+
 ## Installing and configuring prometheus
 prometheus_namespace="monitoring"
 prometheus_release_name="prom"
@@ -99,7 +102,7 @@ if ! helm status "${scdf_release_name}" > /dev/null; then
     --set metrics.enabled=true \
     --set metrics.serviceMonitor.enabled=true \
     --set metrics.serviceMonitor.namespace="${prometheus_namespace}" \
-    --set server.configuration.grafanaInfo="http://grafana:3000" > /dev/null
+    --set server.configuration.grafanaInfo="http://instance.autolab.strigo.io:3000" > /dev/null
 fi
 echo "A release of bitnami/spring-cloud-dataflow, ${scdf_release_name}, is running on ${scdf_namespace} namespace"
 
