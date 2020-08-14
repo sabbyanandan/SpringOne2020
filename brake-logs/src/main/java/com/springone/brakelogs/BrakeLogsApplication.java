@@ -14,8 +14,8 @@ public class BrakeLogsApplication {
 	}
 
 	@Bean
-	public Consumer<Truck> process() {
-		return truck -> System.out.println(truck);
+	public Consumer<Object> process() {
+		return result -> System.out.println(result);
 	}
 }
 
