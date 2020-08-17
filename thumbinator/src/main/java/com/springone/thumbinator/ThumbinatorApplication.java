@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.net.URL;
+import java.util.Random;
 
 @EnableTask
 @EnableBatchProcessing
@@ -30,6 +31,8 @@ public class ThumbinatorApplication {
 	String DRAFT_THUMBNAIL_IMG = "/tmp/draft/dataflow-icon-thumb-draft.png";
 
 	String READY_THUMBNAIL_IMG = "/tmp/ready/dataflow-icon-thumb-ready.png";
+
+	Random random = new Random();
 
 	@Autowired
 	public JobBuilderFactory jobBuilderFactory;
@@ -86,6 +89,8 @@ public class ThumbinatorApplication {
 										.println("##### THUMBNAIL DRAFT is: [" + draftThumbnail.length()
 												+ "] bytes #####");
 
+								Thread.sleep(random.nextInt(10000));
+
 								System.out.println("Job-1 + Step-2 FINISHED");
 								return RepeatStatus.FINISHED;
 							}
@@ -112,6 +117,8 @@ public class ThumbinatorApplication {
 
 								thumbnailFrom.renameTo(thumbnailTo);
 
+								Thread.sleep(random.nextInt(10000));
+
 								System.out.println(
 										"##### THUMBNAIL DRAFT is: [" + thumbnailFromSize
 												+ "] bytes / THUMBNAIL READY is: ["
@@ -134,6 +141,8 @@ public class ThumbinatorApplication {
 							@Override
 							public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
 									throws Exception {
+
+								Thread.sleep(random.nextInt(10000));
 
 								System.out.println(
 										"##### ORIGINAL is: [" + new File(ORIGINAL_IMG).length()
