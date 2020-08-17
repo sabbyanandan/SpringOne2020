@@ -19,6 +19,8 @@ import org.springframework.context.annotation.Bean;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 @EnableTask
@@ -31,6 +33,9 @@ public class ThumbinatorApplication {
 	String DRAFT_THUMBNAIL_IMG = "/tmp/draft/dataflow-icon-thumb-draft.png";
 
 	String READY_THUMBNAIL_IMG = "/tmp/ready/dataflow-icon-thumb-ready.png";
+
+	static List<Integer> SLEEP_TIMERS = Arrays
+			.asList(1000, 20000, 5000, 7000, 8000, 10000, 10000, 12000, 9900);
 
 	Random random = new Random();
 
@@ -89,7 +94,8 @@ public class ThumbinatorApplication {
 										.println("##### THUMBNAIL DRAFT is: [" + draftThumbnail.length()
 												+ "] bytes #####");
 
-								Thread.sleep(random.nextInt(10000));
+								// simulate variable wait timer, so metrics can be captured in Prometheus
+								Thread.sleep(SLEEP_TIMERS.get(random.nextInt(SLEEP_TIMERS.size())));
 
 								System.out.println("Job-1 + Step-2 FINISHED");
 								return RepeatStatus.FINISHED;
@@ -117,7 +123,8 @@ public class ThumbinatorApplication {
 
 								thumbnailFrom.renameTo(thumbnailTo);
 
-								Thread.sleep(random.nextInt(10000));
+								// simulate variable wait timer, so metrics can be captured in Prometheus
+								Thread.sleep(SLEEP_TIMERS.get(random.nextInt(SLEEP_TIMERS.size())));
 
 								System.out.println(
 										"##### THUMBNAIL DRAFT is: [" + thumbnailFromSize
@@ -142,7 +149,8 @@ public class ThumbinatorApplication {
 							public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
 									throws Exception {
 
-								Thread.sleep(random.nextInt(10000));
+								// simulate variable wait timer, so metrics can be captured in Prometheus
+								Thread.sleep(SLEEP_TIMERS.get(random.nextInt(SLEEP_TIMERS.size())));
 
 								System.out.println(
 										"##### ORIGINAL is: [" + new File(ORIGINAL_IMG).length()
