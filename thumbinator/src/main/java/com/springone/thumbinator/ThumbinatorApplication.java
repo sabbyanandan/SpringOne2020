@@ -35,7 +35,7 @@ public class ThumbinatorApplication {
 	String READY_THUMBNAIL_IMG = "/tmp/ready/dataflow-icon-thumb-ready.png";
 
 	static List<Integer> SLEEP_TIMERS = Arrays
-			.asList(1000, 20000, 5000, 7000, 8000, 10000, 10000, 12000, 9900);
+			.asList(11000, 20000, 15000, 7000, 8000, 10000, 10000, 12000, 9900);
 
 	Random random = new Random();
 
