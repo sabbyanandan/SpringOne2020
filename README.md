@@ -6,13 +6,10 @@ A Spring Cloud Data Flow workshop on Kubernetes.
 3. Instructions: [![HackMD documents](https://hackmd.io/badge.svg)](https://hackmd.io/MYhmNBEoRvOKW57_W49z2g)
 
 ## Applications
-1. [`trucks`](https://github.com/sabbyanandan/SpringOne2020/tree/master/thumbinator) — generates truck data in random interval
+1. [`trucks`](https://github.com/sabbyanandan/SpringOne2020/tree/master/thumbinator) — generates trucks in random interval
 2. [`brake-temperture`](https://github.com/sabbyanandan/SpringOne2020/tree/master/brake-temperature) — computes moving average of truck's brake temperature in 10s interval
-3. [`brake-logs`](https://github.com/sabbyanandan/SpringOne2020/tree/master/brake-logs) — logs the computed moving-average in real-time
+3. [`brake-logs`](https://github.com/sabbyanandan/SpringOne2020/tree/master/brake-logs) — prints the truck data
 4. [`thumbinator`](https://github.com/sabbyanandan/SpringOne2020/tree/master/thumbinator) — a task/batch-job that creates thumbnails from images
 
-TODO
-
-TODO
-
+## Presentation
 TODO
