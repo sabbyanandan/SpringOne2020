@@ -51,6 +51,7 @@ public class ThumbinatorApplication {
 
 	@Bean
 	public Job extractImage() {
+		// job1step1: extract image
 		return this.jobBuilderFactory.get("job1")
 				.incrementer(new RunIdIncrementer())
 				.start(this.stepBuilderFactory.get("job1step1")
@@ -64,7 +65,7 @@ public class ThumbinatorApplication {
 								File file = new File(ORIGINAL_IMG);
 								ImageIO.write(ImageIO.read(url), "png", file);
 
-								System.out.println("##### IMAGE Size is: [" + file.length() + "] bytes #####");
+								System.out.println("##### ORIGINAL IMAGE is: [" + file.length() + "] bytes #####");
 
 								System.out.println("Job-1 + Step-1 FINISHED");
 								return RepeatStatus.FINISHED;
@@ -76,6 +77,7 @@ public class ThumbinatorApplication {
 
 	@Bean
 	public Job transformImage() {
+		// job1step2: transform image to a thumbnail
 		return this.jobBuilderFactory.get("job1")
 				.incrementer(new RunIdIncrementer())
 				.start(this.stepBuilderFactory.get("job1step2")
@@ -107,6 +109,7 @@ public class ThumbinatorApplication {
 
 	@Bean
 	public Job loadImage() {
+		// job1step3: load the thumbnail to a different directory
 		return this.jobBuilderFactory.get("job1")
 				.incrementer(new RunIdIncrementer())
 				.start(this.stepBuilderFactory.get("job1step3")
@@ -126,10 +129,8 @@ public class ThumbinatorApplication {
 								// simulate variable wait timer, so metrics can be captured in Prometheus
 								Thread.sleep(SLEEP_TIMERS.get(random.nextInt(SLEEP_TIMERS.size())));
 
-								System.out.println(
-										"##### THUMBNAIL DRAFT is: [" + thumbnailFromSize
-												+ "] bytes / THUMBNAIL READY is: ["
-												+ thumbnailTo.length() + "] bytes #####");
+								System.out.println("##### THUMBNAIL READY is: ["
+										+ thumbnailTo.length() + "] bytes #####");
 
 								System.out.println("Job-1 + Step-3 FINISHED");
 								return RepeatStatus.FINISHED;
@@ -141,6 +142,7 @@ public class ThumbinatorApplication {
 
 	@Bean
 	public Job statusImage() {
+		// job2step1: query the status of original and thumbnail images; print results
 		return this.jobBuilderFactory.get("job2")
 				.incrementer(new RunIdIncrementer())
 				.start(this.stepBuilderFactory.get("job2step1")
@@ -153,7 +155,7 @@ public class ThumbinatorApplication {
 								Thread.sleep(SLEEP_TIMERS.get(random.nextInt(SLEEP_TIMERS.size())));
 
 								System.out.println(
-										"##### ORIGINAL is: [" + new File(ORIGINAL_IMG).length()
+										"##### ORIGINAL IMAGE is: [" + new File(ORIGINAL_IMG).length()
 												+ "] bytes / THUMBNAIL is: ["
 												+ new File(READY_THUMBNAIL_IMG).length() + "] bytes #####");
 
