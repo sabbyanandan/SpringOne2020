@@ -5,6 +5,11 @@ A Spring Cloud Data Flow workshop on Kubernetes.
 2. Students will use the [Strigo](https://strigo.io/) platform to learn how to prepare the environment and exercise SCDF's feature capabilities on Kubernetes.
 3. Instructions: [![HackMD documents](https://hackmd.io/badge.svg)](https://hackmd.io/MYhmNBEoRvOKW57_W49z2g)
 
+> Tip: It is possible to follow the instructions to repeat this workshop in an EC2 instance (image: `ami-03e97315b2269f290`;
+> region: `us-west-2`).
+
+> Tip: Alternatively, you can repeat using a Minikube/Kind cluster in your computer or against an external Kubernetes cluster.
+
 ## Applications
 1. [`trucks`](https://github.com/sabbyanandan/SpringOne2020/tree/master/thumbinator) — generates trucks in random interval
 2. [`brake-temperture`](https://github.com/sabbyanandan/SpringOne2020/tree/master/brake-temperature) — computes moving average of truck's brake temperature in 10s interval
@@ -12,4 +17,4 @@ A Spring Cloud Data Flow workshop on Kubernetes.
 4. [`thumbinator`](https://github.com/sabbyanandan/SpringOne2020/tree/master/thumbinator) — a task/batch-job that creates thumbnails from images
 
 ## Presentation
-TODO
+SpeakerDeck: [Getting Started with Spring Cloud Data Flow](https://speakerdeck.com/sabbyanandan/getting-started-with-spring-cloud-data-flow)
