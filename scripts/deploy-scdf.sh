@@ -1,6 +1,7 @@
 #!/bin/bash
 
-## Helm Repo Update
+## Add Bitnami Repo and update it
+helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
 ## Installing and configuring prometheus
