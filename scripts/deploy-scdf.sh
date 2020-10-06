@@ -102,7 +102,7 @@ if ! helm status "${scdf_release_name}" >/dev/null; then
     --set metrics.enabled=true \
     --set metrics.serviceMonitor.enabled=true \
     --set metrics.serviceMonitor.namespace="${prometheus_namespace}" \
-    --set server.configuration.grafanaInfo="http://instance.autolab.strigo.io:3000" >/dev/null
+    --set server.configuration.grafanaInfo="http://localhost:3000" >/dev/null
 fi
 echo "A release of bitnami/spring-cloud-dataflow, ${scdf_release_name}, is running on ${scdf_namespace} namespace"
 
@@ -115,7 +115,7 @@ helm upgrade --wait -n "${scdf_namespace}" --install "${scdf_release_name}" bitn
   --set metrics.enabled=true \
   --set metrics.serviceMonitor.enabled=true \
   --set metrics.serviceMonitor.namespace="${prometheus_namespace}" \
-  --set server.configuration.grafanaInfo="http://instance.autolab.strigo.io:3000" >/dev/null
+  --set server.configuration.grafanaInfo="http://localhost:3000" >/dev/null
 
 echo ""
 echo "### Stack succesfully deployed ###"
