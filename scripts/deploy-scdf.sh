@@ -17,12 +17,12 @@ fi
 echo "A namespace called ${prometheus_namespace} exists in the cluster"
 
 if ! helm status -n "${prometheus_namespace}" "${prometheus_release_name}" >/dev/null; then
-  echo "Install bitnami/prometheus-operator prometheus_release_name=${prometheus_release_name} prometheus_namespace=${prometheus_namespace}"
+  echo "Install bitnami/kube-prometheus prometheus_release_name=${prometheus_release_name} prometheus_namespace=${prometheus_namespace}"
 
   helm upgrade --wait -n "${prometheus_namespace}" --install "${prometheus_release_name}" \
-    bitnami/prometheus-operator >/dev/null
+    bitnami/kube-prometheus >/dev/null
 fi
-echo "A release of bitnami/prometheus-operator, ${prometheus_release_name}, is running on ${prometheus_namespace} namespace"
+echo "A release of bitnami/kube-prometheus, ${prometheus_release_name}, is running on ${prometheus_namespace} namespace"
 
 ## Installing and configuring grafana
 grafana_namespace="monitoring"
@@ -87,7 +87,7 @@ EOF
     --set dashboardsConfigMaps[2].fileName=scdf-task-batch.json \
     --set datasources.secretName=grafana-datasources >/dev/null
 fi
-echo "A release of bitnami/prometheus-operator, ${grafana_release_name}, is running on ${grafana_namespace} namespace"
+echo "A release of bitnami/kube-prometheus, ${grafana_release_name}, is running on ${grafana_namespace} namespace"
 
 ## Installing and configuring spring-cloud-dataflow
 scdf_namespace="default"
