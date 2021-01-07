@@ -85,6 +85,10 @@ EOF
     --set dashboardsConfigMaps[1].fileName=scdf-streams.json \
     --set dashboardsConfigMaps[2].configMapName=grafana-dashboards-scdf-task-batch \
     --set dashboardsConfigMaps[2].fileName=scdf-task-batch.json \
+    --set dashboardsConfigMaps[3].configMapName=grafana-dashboards-scdf-servers \
+    --set dashboardsConfigMaps[3].fileName=scdf-servers.json \
+    --set dashboardsConfigMaps[4].configMapName=grafana-dashboards-scdf-kafka-streams \
+    --set dashboardsConfigMaps[4].fileName=scdf-kafka-streams.json \
     --set datasources.secretName=grafana-datasources >/dev/null
 fi
 echo "A release of bitnami/kube-prometheus, ${grafana_release_name}, is running on ${grafana_namespace} namespace"
