@@ -34,7 +34,7 @@ if ! kubectl get namespace "${grafana_namespace}" >/dev/null; then
 fi
 echo "A namespace called ${grafana_namespace} exists in the cluster"
 
-download_dasboard() {
+download_dashboard() {
   local -r dashboard=${1:?dashboard url is required}
   local -r destination=${2:?destination path is required}
 
@@ -53,7 +53,7 @@ if ! helm status -n "${grafana_namespace}" "${grafana_release_name}" >/dev/null;
   grafana_dashboard_root_url="https://raw.githubusercontent.com/spring-cloud/spring-cloud-dataflow/master/src/grafana/prometheus/docker/grafana/dashboards"
 
   for dashboard in "scdf-applications" "scdf-streams" "scdf-task-batch"; do
-    ! download_dasboard "${grafana_dashboard_root_url}/${dashboard}.json" "${grafana_tmp_folder}/${dashboard}.json" exit 1
+    ! download_dashboard "${grafana_dashboard_root_url}/${dashboard}.json" "${grafana_tmp_folder}/${dashboard}.json" exit 1
 
     kubectl -n "${grafana_namespace}" delete configmap "grafana-dashboards-${dashboard}" || true &&
       kubectl -n "${grafana_namespace}" create configmap "grafana-dashboards-${dashboard}" --from-file=${dashboard}.json=${grafana_tmp_folder}/${dashboard}.json
