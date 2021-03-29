@@ -52,7 +52,7 @@ if ! helm status -n "${grafana_namespace}" "${grafana_release_name}" >/dev/null;
 
   grafana_dashboard_root_url="https://raw.githubusercontent.com/spring-cloud/spring-cloud-dataflow/master/src/grafana/prometheus/docker/grafana/dashboards"
 
-  for dashboard in "scdf-applications" "scdf-streams" "scdf-task-batch"; do
+  for dashboard in "scdf-applications" "scdf-streams" "scdf-task-batch" "scdf-servers" "scdf-kafka-streams"; do
     ! download_dashboard "${grafana_dashboard_root_url}/${dashboard}.json" "${grafana_tmp_folder}/${dashboard}.json" exit 1
 
     kubectl -n "${grafana_namespace}" delete configmap "grafana-dashboards-${dashboard}" || true &&
