@@ -1,0 +1,8 @@
+extraVolumeMounts:
+  - name: wavefront-api
+    mountPath: /workspace/runtime/secrets/wavefront-api
+    readOnly: true
+extraVolumes:
+- name: wavefront-api
+  secret:
+    secretName: wavefront-api
